@@ -109,13 +109,13 @@ Overall Winner (by Brier Score): phi3:3.8b
 +--------------------+-----------+-------------+------------+---------------+---------------------+
 ```
 
-**3. `accuracy_comparison.png`**
+**3. `brier_duration_comparison.png`**
 
 A dual-axis bar chart comparing the Brier score (lower is better) and average response time (lower is better) for each model. This chart is key for understanding the trade-off between a model's correctness and its speed.
 
 ![Brier/Duration Plot](sample_output/brier_duration_comparison.png)
 
-**4. `brier_duration_comparison.png`**
+**4. `accuracy_comparison.png`**
 
 A bar chart visualizing the accuracy of each model. Higher is better.
 
