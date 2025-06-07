@@ -2,7 +2,7 @@
 
 This repository provides a Python-based benchmark to evaluate the intent classification performance of Large Language Models (LLMs) served via Ollama. It systematically tests models for their ability to correctly classify user queries into predefined categories, measuring performance with metrics that balance accuracy and confidence.
 
-The benchmark now uses the **Brier Score** as its primary evaluation metric, which provides a more nuanced measure of performance than simple accuracy. A lower Brier score indicates better calibration and is preferred.
+The benchmark uses the **Brier Score** as its primary evaluation metric, which provides a more nuanced measure of performance than simple accuracy. A lower Brier score indicates better calibration and is preferred.
 
 ## Key Features
 
@@ -82,33 +82,49 @@ A human-readable summary with the overall winner and a performance breakdown for
 LLM Intent Classification Performance Summary
 ========================================
 
-Overall Winner (by lowest Brier Score): gemma:2b
+Overall Winner (by Brier Score): phi3:3.8b
 
-+---------+-----------+-------------+----------+---------------+--------------------+
-| Model   |   Correct |   Incorrect | Accuracy |   Brier Score |   Avg. Duration (s) |
-+=========+===========+=============+==========+===============+====================+
-| gemma:2b|        24 |           2 |   0.9231 |        0.0815 |               0.55 |
-+---------+-----------+-------------+----------+---------------+--------------------+
-| llama2  |        21 |           5 |   0.8077 |        0.1987 |               1.12 |
-+---------+-----------+-------------+----------+---------------+--------------------+
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| Model              |   Correct |   Incorrect |   Accuracy |   Brier Score |   Avg. Duration (s) |
++====================+===========+=============+============+===============+=====================+
+| deepseek-r1:latest |        26 |          10 |     0.7222 |        0.2122 |                5.58 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| gemma3:12b         |        32 |           4 |     0.8889 |        0.1065 |                2.83 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| gemma3:27b         |        35 |           1 |     0.9722 |        0.0299 |                6.62 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| gemma:2b           |        33 |           3 |     0.9167 |        0.0476 |                2.17 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| llama3.1:8b        |        26 |          10 |     0.7222 |        0.0513 |                2.4  |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| llama3.2:1b        |        11 |          25 |     0.3056 |        0.2039 |                2.21 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| mistral:instruct   |        34 |           2 |     0.9444 |        0.0499 |                2.27 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| phi3:3.8b          |        20 |          16 |     0.5556 |        0.0278 |                3.45 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| phi4:latest        |        32 |           4 |     0.8889 |        0.0933 |                3    |
++--------------------+-----------+-------------+------------+---------------+---------------------+
+| qwen3:14b          |        25 |          11 |     0.6944 |        0.1274 |               19.36 |
++--------------------+-----------+-------------+------------+---------------+---------------------+
 ```
 
 **3. `accuracy_comparison.png`**
 
-A bar chart visualizing the accuracy of each model. Higher is better.
+A dual-axis bar chart comparing the Brier score (lower is better) and average response time (lower is better) for each model. This chart is key for understanding the trade-off between a model's correctness and its speed.
 
-![Accuracy Plot](https://i.imgur.com/example-accuracy.png)
+![Brier/Duration Plot](sample_output/brier_duration_comparison.png)
 
 **4. `brier_duration_comparison.png`**
 
-A dual-axis bar chart comparing the Brier score (lower is better) and average response time (lower is better) for each model. This chart is key for understanding the trade-off between a model's correctness and its speed.
+A bar chart visualizing the accuracy of each model. Higher is better.
 
-![Brier/Duration Plot](https://i.imgur.com/example-brier-duration.png)
+![Accuracy Plot](sample_output/accuracy_comparison.png)
 
 ---
 
 ## Customization
 
-- **Models**: The script tests all models available to Ollama. To test a specific set, you can modify the `models` list in `llm-test.py`.
-- **Queries**: The test queries can be easily edited in the `test_queries` dictionary in `llm-test.py`.
-- **API Endpoint**: If Ollama runs on a different address, change the `OLLAMA_API_URL` variable at the top of `llm-test.py`.
+- **Models**: The script tests all models available to Ollama. To test a specific set, you can modify the `models` list in `run_tests.py`.
+- **Queries**: The test queries can be easily edited in the `test_queries` dictionary in `run_tests.py`.
+- **API Endpoint**: If Ollama runs on a different address, change the `OLLAMA_API_URL` variable at the top of `run_tests.py`.
